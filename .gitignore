@@ -3,4 +3,4 @@ __pycache__/
 .env
 venv/
 vector_db/
-instance/
+instance/.vscode/
