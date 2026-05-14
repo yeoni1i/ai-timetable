@@ -12,10 +12,10 @@
     <div class="logo">AI 시간표 추천</div>
 
     <nav class="menu">
-            <a href="{{ url_for('main.home') }}">홈</a>
-            <a href="{{ url_for('recommend.priority') }}">시간표 추천</a>
-            <a href="#">졸업요건</a>
-            <a href="{{ url_for('chatbot.chatbot_page') }}">AI 챗봇</a>
+        <a href="{{ url_for('main.home') }}">홈</a>
+        <a href="{{ url_for('recommend.priority') }}">시간표 추천</a>
+        <a href="#">졸업요건</a>
+        <a href="{{ url_for('chatbot.chatbot_page') }}">AI 챗봇</a>
     </nav>
 </header>
 
@@ -32,7 +32,7 @@
 
         <div class="input-area">
             <input type="text" id="message" placeholder="질문을 입력하세요">
-            <button onclick="sendMessage()">전송</button>
+            <button type="button" onclick="sendMessage()">전송</button>
         </div>
     </div>
 </div>
@@ -54,21 +54,37 @@
 
         input.value = "";
 
-        const response = await fetch("/chat", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                message: message
-            })
-        });
+        try {
+            const response = await fetch("{{ url_for('chatbot.ask_chatbot') }}", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    message: message
+                })
+            });
 
-        const data = await response.json();
+            const data = await response.json();
 
-        chatBox.innerHTML += `
-            <div class="bot-message">${data.answer}</div>
-        `;
+            if (!response.ok) {
+                chatBox.innerHTML += `
+                    <div class="bot-message">${data.answer || "오류가 발생했습니다."}</div>
+                `;
+                return;
+            }
+
+            chatBox.innerHTML += `
+                <div class="bot-message">${data.answer}</div>
+            `;
+
+        } catch (error) {
+            console.error(error);
+
+            chatBox.innerHTML += `
+                <div class="bot-message">서버와 연결하는 중 오류가 발생했습니다.</div>
+            `;
+        }
 
         chatBox.scrollTop = chatBox.scrollHeight;
     }
@@ -81,3 +97,4 @@
 </script>
 
 </body>
+</html>

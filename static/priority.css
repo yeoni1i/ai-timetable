@@ -7,7 +7,7 @@ body {
 
 .top-nav {
     width: 100%;
-    height: 64px;
+    height: 60px;
     background-color: #ffffff;
     border-bottom: 1px solid #eeeeee;
 
@@ -15,25 +15,25 @@ body {
     align-items: center;
     justify-content: space-between;
 
-    padding: 0 40px;
+    padding: 0 36px;
     box-sizing: border-box;
 }
 
 .logo {
-    font-size: 20px;
+    font-size: 19px;
     font-weight: 700;
     color: #222;
 }
 
 .menu {
     display: flex;
-    gap: 28px;
+    gap: 24px;
 }
 
 .menu a {
     text-decoration: none;
     color: #555;
-    font-size: 20px;
+    font-size: 17px;
     font-weight: 500;
 }
 
@@ -42,25 +42,27 @@ body {
 }
 
 .page {
-    min-height: calc(100vh - 64px);
+    min-height: calc(100vh - 60px);
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    padding-top: 72px;
+    padding-top: 36px;
+    box-sizing: border-box;
 }
 
 .priority-card {
-    width: 720px;
+    width: 88%;
+    max-width: 560px;
     background: #ffffff;
     border: 1px solid #e5e7eb;
-    border-radius: 24px;
-    padding: 40px 44px;
-    box-shadow: 0 20px 45px rgba(15, 23, 42, 0.08);
+    border-radius: 22px;
+    padding: 28px 32px;
+    box-shadow: 0 16px 36px rgba(15, 23, 42, 0.08);
 }
 
 .step-text {
-    margin: 0 0 8px;
-    font-size: 13px;
+    margin: 0 0 6px;
+    font-size: 12px;
     font-weight: 700;
     color: #4f46e5;
     letter-spacing: 0.08em;
@@ -68,34 +70,35 @@ body {
 
 .priority-card h1 {
     margin: 0;
-    font-size: 36px;
+    font-size: 31px;
+    line-height: 1.2;
     font-weight: 800;
 }
 
 .desc {
-    margin: 18px 0 36px;
+    margin: 12px 0 24px;
     color: #6b7280;
-    font-size: 16px;
+    font-size: 15px;
 }
 
 .slider-list {
     display: grid;
-    gap: 28px;
+    gap: 14px;
 }
 
 .slider-item {
     background: #f9fafb;
     border: 1px solid #eeeeee;
-    border-radius: 18px;
-    padding: 22px 24px;
+    border-radius: 16px;
+    padding: 16px 18px;
 }
 
 .slider-title {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 14px;
-    font-size: 16px;
+    margin-bottom: 10px;
+    font-size: 15px;
     font-weight: 700;
 }
 
@@ -110,13 +113,13 @@ body {
 
 .next-btn {
     width: 100%;
-    height: 52px;
-    margin-top: 36px;
+    height: 48px;
+    margin-top: 22px;
     border: none;
-    border-radius: 16px;
+    border-radius: 14px;
     background: #4f46e5;
     color: white;
-    font-size: 17px;
+    font-size: 16px;
     font-weight: 700;
     cursor: pointer;
 }

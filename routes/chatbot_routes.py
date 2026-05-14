@@ -1,17 +1,16 @@
 from flask import Blueprint, render_template, request, jsonify
-from chatbot import get_chatbot_answer
+from services.chatbot_service import get_chatbot_answer
 import traceback
 
-chatbot_bp = Blueprint("chatbot", __name__)
+chatbot_bp = Blueprint("chatbot", __name__, url_prefix="/chatbot")
 
 
-@chatbot_bp.route("/chatbot", methods=["GET"])
+@chatbot_bp.route("/", methods=["GET"])
 def chatbot_page():
     return render_template("chatbot.html")
 
-
-@chatbot_bp.route("/chat", methods=["POST"])
-def chat():
+@chatbot_bp.route("/ask", methods=["POST"])
+def ask_chatbot():
     try:
         data = request.get_json()
 

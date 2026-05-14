@@ -9,10 +9,8 @@ from langchain_huggingface import HuggingFaceEmbeddings
 
 load_dotenv()
 
-GROQ_API_KEY = os.getenv("GROQ_API_KEY")
-
 client = OpenAI(
-    api_key=GROQ_API_KEY,
+    api_key=os.getenv("GROQ_API_KEY"),
     base_url="https://api.groq.com/openai/v1"
 )
 
@@ -32,9 +30,7 @@ def load_documents():
         chunk_overlap=100
     )
 
-    chunks = splitter.split_documents([document])
-
-    return chunks
+    return splitter.split_documents([document])
 
 
 def get_embeddings():
@@ -64,18 +60,19 @@ def create_vectorstore():
 def load_vectorstore():
     embeddings = get_embeddings()
 
-    vectorstore = Chroma(
+    return Chroma(
         persist_directory=VECTOR_DB_PATH,
         embedding_function=embeddings
     )
-
-    return vectorstore
 
 
 def get_rag_answer(user_question):
     vectorstore = load_vectorstore()
 
     docs = vectorstore.similarity_search(user_question, k=3)
+    
+    if not docs:
+        return "관련 문서를 찾을 수 없습니다."
 
     context = "\n\n".join([doc.page_content for doc in docs])
 
@@ -90,10 +87,9 @@ def get_rag_answer(user_question):
 
 -----------------------------------
 
-(질문에 대한 한 줄 요약)
-
 [추천 과목]
 - 과목명
+- 필수 교양 한과목
 - 과목명
 - 과목명
 -교양과목 자유선택
@@ -128,9 +124,7 @@ def get_rag_answer(user_question):
    - 공통/핵심교양 6학점
 12. 2학년 이상은 전공 비중을 더 높게 추천할 수 있다.
 13. 공통교양 필수 과목 중 비판적사고와토론, 창의적사고와글쓰기는
-한 학기 추천에서 보통 둘 다 동시에 추천하지 않는다.
-
-대신 아래 형식처럼 선택형으로 제시해라:
+둘 다 동시에 추천하지 않는다. 그리고 아래 형식처럼 선택형으로 제시해라:
 - 비판적사고와토론 또는 창의적사고와글쓰기
 
 14. 여러 선택지가 가능한 교양 과목은 모두 나열하지 말고
