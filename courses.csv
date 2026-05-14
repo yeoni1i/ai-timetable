@@ -1,0 +1,12 @@
+name,day,period,credit,category,difficulty,is_required
+AI융합개론,월,1,3,전공,3,TRUE
+비판적사고와토론,수,2,2,교양,2,TRUE
+파이썬프로그래밍,수,1,3,전공,5,FALSE
+통계학,화,1,3,전공,4,FALSE
+디지털리터러시,금,7,3,교양,2,TRUE
+C++프로그래밍,목,7,3,전공,5,FALSE
+컴퓨팅사고,월,1,2,교양,5,TRUE
+인공지능수학,금,4,3,전공,5,FALSE
+이산수학,금,1,3,전공,3,FALSE
+IT개론-1,목,4,3,전공,5,FALSE
+IT개론-2,목,7,3,전공,5,FALSE
