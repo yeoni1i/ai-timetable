@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='timetable.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='style/profile.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='schedule.css') }}">
+</head>
 </head>
 
 <body>
@@ -92,23 +94,9 @@
                 </div>
             </section>
 
-            {% if result %}
-            <section class="analysis-card">
-                <h2>추천 분석</h2>
+            {% include "schedule.html" %}
 
-                <p class="score-text">
-                    추천 점수 <strong>{{ result.score }}점</strong>
-                </p>
-
-                <p class="analysis-text">
-                    {{ result.reason }}
-                </p>
-
-                <form action="{{ url_for('recommend.register') }}" method="post">
-                    <button type="submit" class="register-btn">등록</button>
-                </form>
-            </section>
-            {% endif %}
+           
         </aside>
     </div>
     </main>

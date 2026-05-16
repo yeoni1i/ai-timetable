@@ -113,7 +113,7 @@ def make_reason(timetable, score):
     )
 
 
-def recommend_timetable(priorities, conditions):
+def recommend_timetable(priorities, conditions, user_schedules):
     courses = load_courses()
 
     if conditions["avoid_first_period"]:
@@ -121,6 +121,12 @@ def recommend_timetable(priorities, conditions):
             course for course in courses
             if course["period"] != 1
         ]
+
+    # 내 설정 시간과 겹치는 강의 제외
+    courses = [
+        course for course in courses
+        if not is_conflict_with_user_schedule(course, user_schedules)
+    ]
 
     weights = normalize_weights(priorities)
     timetables = generate_timetables(courses, conditions["max_credit"])
@@ -145,3 +151,45 @@ def recommend_timetable(priorities, conditions):
     scored.sort(key=lambda x: x["score"], reverse=True)
 
     return scored[0]
+
+
+#시간 겹침 확인 함수
+def time_to_minutes(time_str):
+    hour, minute = map(int, time_str.split(":"))
+    return hour * 60 + minute
+
+
+def period_to_start_minutes(period):
+    return (9 + int(period) - 1) * 60
+
+
+def period_to_end_minutes(period):
+    return period_to_start_minutes(period) + 180
+
+
+def is_time_overlap_minutes(start1, end1, start2, end2):
+    return start1 < end2 and start2 < end1
+
+
+def is_conflict_with_user_schedule(course, user_schedules):
+    course_day = course["day"]
+    course_start = period_to_start_minutes(course["period"])
+    course_end = period_to_end_minutes(course["period"])
+
+    for schedule in user_schedules:
+        if course_day != schedule["day"]:
+            continue
+
+        schedule_start = time_to_minutes(schedule["start_time"])
+        schedule_end = time_to_minutes(schedule["end_time"])
+
+        if is_time_overlap_minutes(
+            course_start,
+            course_end,
+            schedule_start,
+            schedule_end
+        ):
+            return True
+
+    return False
+

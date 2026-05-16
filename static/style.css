@@ -1,13 +1,16 @@
 .timetable-page {
     max-width: 1200px;
+    width: 100%;
     margin: 0px auto;
-    padding: 20px;
+    overflow-x: hidden;
+    padding: 40px 24px;
 }
 
 .result-container {
-    display: flex;
-    gap: 32px;
-    align-items: flex-start;
+    display: grid;
+    grid-template-columns: 760px 420px;
+    gap: 0px;
+    align-items: stretch;
 }
 
 .analysis-text {
@@ -21,11 +24,9 @@
     height: 64px;
     background-color: #ffffff;
     border-bottom: 1px solid #eeeeee;
-
     display: flex;
     align-items: center;
     justify-content: space-between;
-
     padding: 0 40px;
     box-sizing: border-box;
 }
@@ -81,3 +82,4 @@
 .analysis-card button:hover {
     opacity: 0.9;
 }
+

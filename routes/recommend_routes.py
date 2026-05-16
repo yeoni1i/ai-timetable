@@ -29,6 +29,7 @@ def condition():
 @recommend_bp.route("/result", methods=["POST"])
 def result():
     priorities = session.get("priorities")
+    user_schedules = session.get("user_schedules", [])
 
     if priorities is None:
         return render_template("priority.html")
@@ -38,7 +39,7 @@ def result():
         "max_credit": int(request.form["max_credit"])
     }
 
-    result = recommend_timetable(priorities, conditions)
+    result = recommend_timetable(priorities, conditions, user_schedules)
 
     session["result"] = result
 
